@@ -22,12 +22,12 @@
     password: "{{ rhn_password }}"
 
 - name: Register with needed channels
-    rhn_register:
-      state: present
-      username: "{{ rhn_username }}" 
-      password: "{{ rhn_password }}"
-      channels: "{{ rhn_channels }}"  
-      profilename: "{{ rhn_profilename }}"
+  rhn_register:
+    state: present
+    username: "{{ rhn_username }}" 
+    password: "{{ rhn_password }}"
+    channels: "{{ rhn_channels }}"  
+    profilename: "{{ rhn_profilename }}"
 
 - name: Re-enable cert checking in python
   ini_file:
