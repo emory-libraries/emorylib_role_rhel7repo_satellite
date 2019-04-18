@@ -6,36 +6,37 @@
     option: verify
     value: disable
 
-- name: Check if System ID file exists
-  stat:
-    path: /etc/sysconfig/rhn/systemid
-  register: systemid
-
-- name: Backup SystemID file
-  copy:
-    dest: "/etc/sysconfig/rhn/systemid-{{ ansible_date_time.iso8601_basic_short }}"
-    src: /etc/sysconfig/rhn/systemid
-    remote_src: yes
-  when: systemid.stat.exists
-
-- name: Delete SystemID file
-  file:
-    path: /etc/sysconfig/rhn/systemid
-    state: absent
-  when: systemid.stat.exists
-
-#- name: Ensure SystemID has same username as play
-#  xml:
-#    backup: yes
+#- name: Check if System ID file exists
+#  stat:
 #    path: /etc/sysconfig/rhn/systemid
-#    xpath: //member[name='username']/value/string
-#    value: "{{ rhn_username }}"
+#  register: systemid
+#
+#- name: Backup SystemID file
+#  copy:
+#    dest: "/etc/sysconfig/rhn/systemid-{{ ansible_date_time.iso8601_basic_short }}"
+#    src: /etc/sysconfig/rhn/systemid
+#    remote_src: yes
+#  when: systemid.stat.exists
+#
+#- name: Delete SystemID file
+#  file:
+#    path: /etc/sysconfig/rhn/systemid
+#    state: absent
+#  when: systemid.stat.exists
+
+- name: Ensure SystemID has same username as play
+  xml:
+    backup: yes
+    path: /etc/sysconfig/rhn/systemid
+    xpath: //member[name='username']/value/string
+    value: "{{ rhn_username }}"
 
 - name: Unregister from RHN
   rhn_register:
     state: absent
     username: "{{ rhn_username }}"
     password: "{{ rhn_password }}"
+  ignore_errors: yes
 
 - name: Register with needed channels
   rhn_register:
