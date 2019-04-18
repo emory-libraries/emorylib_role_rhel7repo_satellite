@@ -15,6 +15,13 @@
     option: verify
     value: disable
 
+- name: Ensure SystemID has same username as play
+  xml:
+    backup: yes
+    path: /etc/sysconfig/rhn/systemid
+    xpath: /name/value/string
+    value: "{{ rhn_username }}"
+
 - name: Unregister from RHN
   rhn_register:
     state: absent
