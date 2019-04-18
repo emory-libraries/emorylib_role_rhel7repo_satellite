@@ -13,7 +13,7 @@
 
 - name: Backup SystemID file
   copy:
-    path: "/etc/sysconfig/rhn/systemid-{{ ansible_date_time.iso8601_basic_short }}"
+    dest: "/etc/sysconfig/rhn/systemid-{{ ansible_date_time.iso8601_basic_short }}"
     src: /etc/sysconfig/rhn/systemid
     remote_src: yes
   when: systemid.stat.exists
