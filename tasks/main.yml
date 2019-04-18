@@ -19,7 +19,7 @@
   xml:
     backup: yes
     path: /etc/sysconfig/rhn/systemid
-    xpath: /name/value/string
+    xpath: /params/param/value/struct/member/name/value/string
     value: "{{ rhn_username }}"
 
 - name: Unregister from RHN
