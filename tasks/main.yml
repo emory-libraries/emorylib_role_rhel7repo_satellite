@@ -9,20 +9,20 @@
 - name: Check if System ID file exists
   stat:
     path: /etc/sysconfig/rhn/systemid
-  register: systemid_stat
+  register: systemid
 
 - name: Backup SystemID file
   copy:
     path: "/etc/sysconfig/rhn/systemid-{{ ansible_date_time.iso8601_basic_short }}"
     src: /etc/sysconfig/rhn/systemid
     remote_src: yes
-  when: systemid_stat.exists
+  when: systemid.stat.exists
 
 - name: Delete SystemID file
   file:
     path: /etc/sysconfig/rhn/systemid
     state: absent
-  when: systemid_stat.exists
+  when: systemid.stat.exists
 
 #- name: Ensure SystemID has same username as play
 #  xml:
