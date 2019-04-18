@@ -1,12 +1,12 @@
 ---
 # tasks file for emorylib_role_rhel7repo_satellite
-- name: Set relative path for calling role
-  set_fact:
-    relative_role_path: "{{ role_path }}"
+#- name: Set relative path for calling role
+#  set_fact:
+#    relative_role_path: "{{ role_path }}"
 
-- name: Import local project enviroment vars
-  include_role: 
-    name: dce_role_project_env
+#- name: Import local project enviroment vars
+#  include_role: 
+#    name: dce_role_project_env
 
 - name: Disable cert checking in python
   ini_file:
